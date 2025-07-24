@@ -91,6 +91,15 @@ function drawCurvedText(text, radius, centerX, centerY, startAngle, spacing) {
   });
 }
 
+function drawStraightTextBelowFlower(text, yOffset = 350) {
+  ctx.save();
+  ctx.font = "bold 32px Arial";
+  ctx.fillStyle = "red";
+  ctx.textAlign = "center";
+  ctx.fillText(text, cx, cy + yOffset);
+  ctx.restore();
+}
+
 // --- Estados acumulativos ---
 let outerPetals = [];
 let innerPetals = [];
@@ -147,6 +156,8 @@ function animateSunflower() {
           drawRing();
           setTimeout(() => {
             drawCurvedText("FELIZ CUMPLEAÑOS PICIOSA!!", 165, cx, cy -10, 0 , 20);
+            drawStraightTextBelowFlower("TE AMO ❤️", 380);
+
           }, 300);
         }, 300);
       }, 300);
