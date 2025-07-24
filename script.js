@@ -156,7 +156,7 @@ function animateSunflower() {
           drawRing();
           setTimeout(() => {
             drawCurvedText("FELIZ CUMPLEAÑOS PICIOSA!!", 165, cx, cy -10, 0 , 20);
-            drawStraightTextBelowFlower("TE AMO ❤️", 380);
+            drawStraightTextBelowFlower("TE AMO ❤️", 360);
 
           }, 300);
         }, 300);
