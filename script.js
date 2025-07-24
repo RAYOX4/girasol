@@ -146,7 +146,7 @@ function animateSunflower() {
         setTimeout(() => {
           drawRing();
           setTimeout(() => {
-            drawCurvedText("FELIZ CUMPLEAÑOS PICIOSA!!", 165, cx, cy -15, 0 , 20);
+            drawCurvedText("FELIZ CUMPLEAÑOS PICIOSA!!", 165, cx, cy -10, 0 , 20);
           }, 300);
         }, 300);
       }, 300);
