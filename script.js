@@ -162,8 +162,8 @@ function animateSunflower() {
   const outerAngles = Array.from({ length: petals }, (_, i) => (i * 2 * Math.PI) / petals);
   const innerAngles = Array.from({ length: petals }, (_, i) => ((i + 0.5) * 2 * Math.PI) / petals);
 
-  animateLayer(outerAngles, 120, "#f1c40f", 60, outerPetals, () => {
-    animateLayer(innerAngles, 90, "#f39c12", 60, innerPetals, () => {
+  animateLayer(outerAngles, 120, "#f1c40f", 10, outerPetals, () => {
+    animateLayer(innerAngles, 90, "#f39c12", 10, innerPetals, () => {
       setTimeout(() => {
         drawCenter();
         setTimeout(() => {
