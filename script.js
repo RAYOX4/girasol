@@ -71,26 +71,6 @@ function drawRing() {
   ctx.stroke();
 }
 
-// --- Texto en arco ---
-function drawCurvedText(text, radius, centerX, centerY, startAngle, spacing) {
-  const chars = text.split("");
-  const angleStep = spacing / radius;
-  let angle = startAngle - (chars.length / 2) * angleStep;
-
-  chars.forEach(char => {
-    ctx.save();
-    ctx.translate(centerX, centerY);
-    ctx.rotate(angle);
-    ctx.translate(0, -radius);
-    ctx.rotate(-angle);
-    ctx.fillStyle =  "rgba(255, 215, 0, 0.8)";
-    ctx.font = "bold 25px Arial";
-    ctx.fillText(char, -6, 0);
-    ctx.restore();
-    angle += angleStep;
-  });
-}
-
 function drawStraightTextBelowFlower(text, yOffset = 350) {
   ctx.save();
   ctx.font = "bold 32px Arial";
@@ -98,6 +78,40 @@ function drawStraightTextBelowFlower(text, yOffset = 350) {
   ctx.textAlign = "center";
   ctx.fillText(text, cx, cy + yOffset);
   ctx.restore();
+}
+
+// --- Texto animado letra por letra ---
+function drawCurvedTextLetter(char, angle, radius, centerX, centerY) {
+  ctx.save();
+  ctx.translate(centerX, centerY);
+  ctx.rotate(angle);
+  ctx.translate(0, -radius);
+  ctx.rotate(-angle);
+  ctx.fillStyle = "rgba(255, 215, 0, 0.8)";
+  ctx.font = "bold 25px Arial";
+  ctx.fillText(char, -6, 0);
+  ctx.restore();
+}
+
+function animateCurvedText(text, radius, centerX, centerY, startAngle, spacing, delay, onFinish) {
+  const chars = text.split("");
+  const angleStep = spacing / radius;
+  let angle = startAngle - (chars.length / 2) * angleStep;
+  let index = 0;
+
+  function drawNext() {
+    if (index >= chars.length) {
+      onFinish && onFinish();
+      return;
+    }
+    const char = chars[index];
+    drawCurvedTextLetter(char, angle, radius, centerX, centerY);
+    angle += angleStep;
+    index++;
+    setTimeout(drawNext, delay);
+  }
+
+  drawNext();
 }
 
 // --- Estados acumulativos ---
@@ -155,9 +169,9 @@ function animateSunflower() {
         setTimeout(() => {
           drawRing();
           setTimeout(() => {
-            drawCurvedText("FELIZ CUMPLEAÑOS PICIOSA!!", 165, cx, cy -10, 0 , 20);
-            drawStraightTextBelowFlower("TE AMO ❤️", 340);
-
+            animateCurvedText("FELIZ CUMPLEAÑOS PICIOSA!!", 165, cx, cy -10, 0, 20, 80, () => {
+              drawStraightTextBelowFlower("TE AMO ❤️", 340);
+            });
           }, 300);
         }, 300);
       }, 300);
